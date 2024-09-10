@@ -84,7 +84,8 @@ function varargout = mcxlab(varargin)
 %      If any of the 4 compnents present, they should have matching row number.
 %
 % == MC simulation settings ==
-%      cfg.seed:       seed for the random number generator (integer) [0]
+%      cfg.seed:       seed for the random number generator (integer) [default 1648335518]
+%                      setting seed to a negative integer or 0 uses system clock as seed;
 %                      if set to a uint8 array, the binary data in each column is used
 %                      to seed a photon (i.e. the "replay" mode)
 %                      Example: <demo_mcxlab_replay.m>
@@ -316,6 +317,13 @@ function varargout = mcxlab(varargin)
 %                    'M':  return photon trajectory data as the 5th output
 %                    'P':  show progress bar
 %                    'T':  save photon trajectory data only, as the 1st output, disable flux/detp/seeds outputs
+%      cfg.flog: [2]  log printing control; if set to a string, it defines a file path
+%                     at which location the log will be printed in append mode; on Linux and Mac OS,
+%                     one can use special paths such as /dev/null; if set to an integer,
+%                     2 (default): stderr
+%                     1: stdout
+%                     0: stdout but suppress printing MCX banner
+%      cfg.istrajstokes [0]: if set to 1, traj.iquv output contains the Stokes IQUV vector along trajectories
 %      cfg.maxjumpdebug: [10000000|int] when trajectory is requested in the output,
 %                     use this parameter to set the maximum position stored. By default,
 %                     only the first 1e6 positions are stored.
@@ -372,6 +380,7 @@ function varargout = mcxlab(varargin)
 %               pos: 2-4:  x/y/z/ of each trajectory position
 %                    5:    current photon packet weight
 %             srcid: 6:    source ID (>0) of the photon
+%             iquv:  7-10: Stokes IQUV vector (>0) of the photon
 %            By default, mcxlab only records the first 1e7 positions along all
 %            simulated photons; change cfg.maxjumpdebug to define a different limit.
 %
@@ -588,7 +597,10 @@ if (nargout >= 5 || (~isempty(cfg) && isstruct(cfg) && isfield(cfg, 'debuglevel'
         traj.id = typecast(data(1, :), 'uint32').';
         [traj.id, idx] = sort(traj.id);
         traj.pos = traj.pos(idx, :);
-        traj.srcid = int32(data(end, :)');
+        traj.srcid = int32(data(6, :)');
+        if (size(data, 1) >= 10)
+            traj.iquv = data(7:10, :)';
+        end
         traj.data = [single(traj.id)'; data(2:end, idx)];
         newtraj(i) = traj;
     end

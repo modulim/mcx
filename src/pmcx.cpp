@@ -399,7 +399,7 @@ void parseVolume(const py::dict& user_cfg, Config& mcx_config) {
 void parse_config(const py::dict& user_cfg, Config& mcx_config) {
     mcx_initcfg(&mcx_config);
 
-    mcx_config.flog = stdout;
+    mcx_config.flog = stderr;
     GET_SCALAR_FIELD(user_cfg, mcx_config, nphoton, py::int_);
     GET_SCALAR_FIELD(user_cfg, mcx_config, nblocksize, py::int_);
     GET_SCALAR_FIELD(user_cfg, mcx_config, nthread, py::int_);
@@ -425,6 +425,7 @@ void parse_config(const py::dict& user_cfg, Config& mcx_config) {
     GET_SCALAR_FIELD(user_cfg, mcx_config, issaveexit, py::bool_);
     GET_SCALAR_FIELD(user_cfg, mcx_config, ismomentum, py::bool_);
     GET_SCALAR_FIELD(user_cfg, mcx_config, isspecular, py::bool_);
+    GET_SCALAR_FIELD(user_cfg, mcx_config, istrajstokes, py::bool_);
     GET_SCALAR_FIELD(user_cfg, mcx_config, replaydet, py::int_);
     GET_SCALAR_FIELD(user_cfg, mcx_config, faststep, py::bool_);
     GET_SCALAR_FIELD(user_cfg, mcx_config, maxvoidstep, py::int_);
@@ -697,8 +698,13 @@ void parse_config(const py::dict& user_cfg, Config& mcx_config) {
             throw py::value_error("the 'polprop' field must a 2D array");
         }
 
+<<<<<<< HEAD
         if ((buffer_info.shape.size() > 1 && buffer_info.shape.at(0) > 0 && buffer_info.shape.at(1) != 7) || buffer_info.shape.size() == 1 && buffer_info.shape.at(0) != 7) {
             throw py::value_error("the 'polprop' field must have 7 columns (mua, radius, rho, n_sph,n_bkg, cv, model)");
+=======
+        if ((buffer_info.shape.size() > 1 && buffer_info.shape.at(0) > 0 && buffer_info.shape.at(1) != 5) || (buffer_info.shape.size() == 1 && buffer_info.shape.at(0) != 5)) {
+            throw py::value_error("the 'polprop' field must have 5 columns (mua, radius, rho, n_sph,n_bkg)");
+>>>>>>> c9456a710782ff829e667638480fd1e9f8573568
         }
 
         mcx_config.polmedianum = (buffer_info.shape.size() == 1) ? 1 : buffer_info.shape.at(0);
@@ -1002,6 +1008,27 @@ void parse_config(const py::dict& user_cfg, Config& mcx_config) {
         }
     }
 
+    if (user_cfg.contains("flog")) {
+        auto logfile_id_value = user_cfg["flog"];
+
+        if (py::int_::check_(logfile_id_value)) {
+            int logid = py::int_(logfile_id_value);
+            mcx_config.flog = (logid >= 2 ? stderr : (logid == 1 ? stdout : (mcx_config.printnum = -1, stdout)));
+        } else if (py::str::check_(logfile_id_value)) {
+            std::string logfile_id_string_value = py::str(logfile_id_value);
+
+            if (logfile_id_string_value.empty()) {
+                throw py::value_error("the 'flog' field must be an integer or non-empty string");
+            }
+
+            mcx_config.flog = fopen(logfile_id_string_value.c_str(), "a+");
+
+            if (mcx_config.flog == NULL) {
+                throw py::value_error("Log output file can not be written");
+            }
+        }
+    }
+
     // Output arguments parsing
     GET_SCALAR_FIELD(user_cfg, mcx_config, issave2pt, py::bool_);
     GET_SCALAR_FIELD(user_cfg, mcx_config, issavedet, py::bool_);
@@ -1034,6 +1061,7 @@ py::dict pmcx_interface(const py::dict& user_cfg) {
     int thread_id = 0;
     size_t field_dim[6];
     py::dict output;
+    unsigned int debuglen = 0;  /** number of float numbers per photon trajectory position */
 
     try {
         /*
@@ -1042,6 +1070,8 @@ py::dict pmcx_interface(const py::dict& user_cfg) {
         det_ps = nullptr;
 
         parse_config(user_cfg, mcx_config);
+
+        debuglen = MCX_DEBUG_REC_LEN + (mcx_config.istrajstokes << 2);
 
         /** The next step, we identify gpu number and query all GPU info */
         if (!(active_dev = mcx_list_gpu(&mcx_config, &gpu_info))) {
@@ -1094,7 +1124,7 @@ py::dict pmcx_interface(const py::dict& user_cfg) {
         }
 
         if (mcx_config.debuglevel & (MCX_DEBUG_MOVE | MCX_DEBUG_MOVE_ONLY)) {
-            mcx_config.exportdebugdata = (float*) malloc(mcx_config.maxjumpdebug * sizeof(float) * MCX_DEBUG_REC_LEN);
+            mcx_config.exportdebugdata = (float*) malloc(mcx_config.maxjumpdebug * sizeof(float) * debuglen);
         }
 
         /** Start multiple threads, one thread to run portion of the simulation on one CUDA GPU, all in parallel */
@@ -1131,7 +1161,7 @@ py::dict pmcx_interface(const py::dict& user_cfg) {
         field_dim[5] = 1;
 
         if (mcx_config.debuglevel & (MCX_DEBUG_MOVE | MCX_DEBUG_MOVE_ONLY)) {
-            field_dim[0] = MCX_DEBUG_REC_LEN;
+            field_dim[0] = debuglen;
             field_dim[1] = mcx_config.debugdatalen; // his.savedphoton is for one repetition, should correct
             field_dim[2] = 0;
             field_dim[3] = 0;

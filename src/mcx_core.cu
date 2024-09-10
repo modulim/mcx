@@ -423,17 +423,40 @@ __device__ inline void savedetphoton(float n_det[], uint* detectedphoton, float*
  * @param[in] gdebugdata: pointer to the global-memory buffer to store the trajectory info
  */
 
-__device__ inline void savedebugdata(MCXpos* p, uint id, float* gdebugdata, int srcid) {
+__device__ inline uint savedebugdata(MCXpos* p, uint id, float* gdebugdata, int srcid) {
     uint pos = atomicAdd(gjumpdebug, 1);
 
     if (pos < gcfg->maxjumpdebug) {
-        pos *= MCX_DEBUG_REC_LEN;
+        pos *= MCX_DEBUG_REC_LEN + (gcfg->istrajstokes << 2);
         ((uint*)gdebugdata)[pos++] = id;
         gdebugdata[pos++] = p->x;
         gdebugdata[pos++] = p->y;
         gdebugdata[pos++] = p->z;
         gdebugdata[pos++] = p->w;
         gdebugdata[pos++] = srcid;
+        return pos;
+    }
+
+    return 0;
+}
+
+
+/**
+ * @brief Saving photon trajectory data for debugging purposes
+ * @param[in] p: the position/weight of the current photon packet
+ * @param[in] s: the Stokes vector for polarized light simulation
+ * @param[in] id: the global index of the photon
+ * @param[in] gdebugdata: pointer to the global-memory buffer to store the trajectory info
+ */
+
+__device__ inline void savedebugstokes(MCXpos* p, Stokes* s, uint id, float* gdebugdata, int srcid) {
+    uint pos = savedebugdata(p, id, gdebugdata, srcid);
+
+    if (pos > 0 && gcfg->istrajstokes) {
+        gdebugdata[pos++] = s->i;
+        gdebugdata[pos++] = s->q;
+        gdebugdata[pos++] = s->u;
+        gdebugdata[pos++] = s->v;
     }
 }
 
@@ -1062,14 +1085,18 @@ __device__ inline int launchnewphoton(MCXpos* p, MCXdir* v, Stokes* s, MCXtime* 
     /**
      * First, let's terminate the current photon and perform detection calculations
      */
-    if (fabsf(p->w) > 0.f) {
+    if (fabsf(p->w) >= 0.f) {
         ppath[gcfg->partialdata] += p->w; //< sum all the remaining energy
 
         if (gcfg->debuglevel & (MCX_DEBUG_MOVE | MCX_DEBUG_MOVE_ONLY)) {
-            savedebugdata(p, ((uint)f->ndone) + threadid * gcfg->threadphoton + umin(threadid, gcfg->oddphotons), gdebugdata, (int)ppath[gcfg->w0offset - 1]);
+            if (ispolarized && gcfg->istrajstokes) {
+                savedebugstokes(p, s, ((uint)f->ndone) + threadid * gcfg->threadphoton + umin(threadid, gcfg->oddphotons), gdebugdata, (int)ppath[gcfg->w0offset - 1]);
+            } else {
+                savedebugdata(p, ((uint)f->ndone) + threadid * gcfg->threadphoton + umin(threadid, gcfg->oddphotons), gdebugdata, (int)ppath[gcfg->w0offset - 1]);
+            }
         }
 
-        if (*mediaid == 0 && *idx1d != OUTSIDE_VOLUME_MIN && *idx1d != OUTSIDE_VOLUME_MAX && gcfg->issaveref) {
+        if (*mediaid == 0 && *idx1d != OUTSIDE_VOLUME_MIN && *idx1d != OUTSIDE_VOLUME_MAX && gcfg->issaveref && p->w > 0.f) {
             if (gcfg->issaveref == 1) {
                 int tshift = MIN(gcfg->maxgate - 1, (int)(floorf((f->t - gcfg->twin0) * gcfg->Rtstep)));
 
@@ -1127,12 +1154,18 @@ __device__ inline int launchnewphoton(MCXpos* p, MCXdir* v, Stokes* s, MCXtime* 
                                                    (nuvox->sv.isupper ? nuvox->sv.upper : nuvox->sv.lower) == 0)) && gcfg->issaveref < 2) {
                 savedetphoton(n_det, dpnum, ppath, p, v, s, photonseed, seeddata, isdet);
             }
-
-            clearpath(ppath, gcfg->partialdata);
         }
 
 #endif
     }
+
+#ifdef SAVE_DETECTORS
+
+    if (gcfg->savedet) {
+        clearpath(ppath, gcfg->partialdata);
+    }
+
+#endif
 
     /**
      * If the thread completes all assigned photons, terminate this thread.
@@ -1596,7 +1629,11 @@ __device__ inline int launchnewphoton(MCXpos* p, MCXdir* v, Stokes* s, MCXtime* 
     updateproperty<islabel, issvmc>(prop, *mediaid, t, *idx1d, media, (float3*)p, nuvox, flipdir);
 
     if (gcfg->debuglevel & (MCX_DEBUG_MOVE | MCX_DEBUG_MOVE_ONLY)) {
-        savedebugdata(p, (uint)f->ndone + threadid * gcfg->threadphoton + umin(threadid, gcfg->oddphotons), gdebugdata, (int)ppath[3]);
+        if (ispolarized && gcfg->istrajstokes) {
+            savedebugstokes(p, s, (uint)f->ndone + threadid * gcfg->threadphoton + umin(threadid, gcfg->oddphotons), gdebugdata, (int)ppath[3]);
+        } else {
+            savedebugdata(p, (uint)f->ndone + threadid * gcfg->threadphoton + umin(threadid, gcfg->oddphotons), gdebugdata, (int)ppath[3]);
+        }
     }
 
     /**
@@ -1967,7 +2004,11 @@ __global__ void mcx_main_loop(uint media[], OutputType field[], float genergy[],
                 }
 
                 if (gcfg->debuglevel & (MCX_DEBUG_MOVE | MCX_DEBUG_MOVE_ONLY)) {
-                    savedebugdata(&p, (uint)f.ndone + idx * gcfg->threadphoton + umin(idx, gcfg->oddphotons), gdebugdata, (int)ppath[gcfg->w0offset - 1]);
+                    if (ispolarized && gcfg->istrajstokes) {
+                        savedebugstokes(&p, &s, (uint)f.ndone + idx * gcfg->threadphoton + umin(idx, gcfg->oddphotons), gdebugdata, (int)ppath[gcfg->w0offset - 1]);
+                    } else {
+                        savedebugdata(&p, (uint)f.ndone + idx * gcfg->threadphoton + umin(idx, gcfg->oddphotons), gdebugdata, (int)ppath[gcfg->w0offset - 1]);
+                    }
                 }
             }
 
@@ -2327,6 +2368,14 @@ __global__ void mcx_main_loop(uint media[], OutputType field[], float genergy[],
                         GPUDEBUG(("Rtotal=%f\n", Rtotal));
                     } //< else, total internal reflection
 
+                    if (gcfg->debuglevel & (MCX_DEBUG_MOVE | MCX_DEBUG_MOVE_ONLY)) {
+                        if (ispolarized && gcfg->istrajstokes) {
+                            savedebugstokes(&p, &s, (uint)f.ndone + idx * gcfg->threadphoton + umin(idx, gcfg->oddphotons), gdebugdata, (int)ppath[gcfg->w0offset - 1]);
+                        } else {
+                            savedebugdata(&p, (uint)f.ndone + idx * gcfg->threadphoton + umin(idx, gcfg->oddphotons), gdebugdata, (int)ppath[gcfg->w0offset - 1]);
+                        }
+                    }
+
                     if (Rtotal < 1.f // if total internal reflection does not happen
                             && (!(mediaid == 0 && ((isdet & 0xF) == bcMirror))) // if out of bbx and cfg.bc is not 'm'
                             && rand_next_reflect(t) > Rtotal) { // and if photon chooses the transmission path, then do transmission
@@ -2524,14 +2573,14 @@ int mcx_list_gpu(Config* cfg, GPUInfo** info) {
     }
 
     if (deviceCount == 0) {
-        MCX_FPRINTF(stderr, S_RED "ERROR: No CUDA-capable GPU device found\n" S_RESET);
+        MCX_FPRINTF(cfg->flog, S_RED "ERROR: No CUDA-capable GPU device found\n" S_RESET);
         return 0;
     }
 
     *info = (GPUInfo*)calloc(deviceCount, sizeof(GPUInfo));
 
     if (cfg->gpuid && cfg->gpuid > deviceCount) {
-        MCX_FPRINTF(stderr, S_RED "ERROR: Specified GPU ID is out of range\n" S_RESET);
+        MCX_FPRINTF(cfg->flog, S_RED "ERROR: Specified GPU ID is out of range\n" S_RESET);
         return 0;
     }
 
@@ -2565,7 +2614,7 @@ int mcx_list_gpu(Config* cfg, GPUInfo** info) {
         (*info)[dev].autoblock = MAX((*info)[dev].maxmpthread / mcx_smxblock(dp.major, dp.minor), 64);
 
         if ((*info)[dev].autoblock == 0) {
-            MCX_FPRINTF(stderr, S_RED "WARNING: maxThreadsPerMultiProcessor can not be detected\n" S_RESET);
+            MCX_FPRINTF(cfg->flog, S_RED "WARNING: maxThreadsPerMultiProcessor can not be detected\n" S_RESET);
             (*info)[dev].autoblock = 64;
         }
 
@@ -2638,7 +2687,7 @@ void mcx_run_simulation(Config* cfg, GPUInfo* gpu) {
     size_t photoncount = 0;
 
     unsigned int printnum;
-    unsigned int tic, tic0, tic1, toc = 0, debuglen = MCX_DEBUG_REC_LEN;
+    unsigned int tic, tic0, tic1, toc = 0, debuglen = MCX_DEBUG_REC_LEN + (cfg->istrajstokes << 2);
     size_t fieldlen;
     uint3 cp0 = cfg->crop0, cp1 = cfg->crop1;
     uint2 cachebox;
@@ -2732,7 +2781,7 @@ void mcx_run_simulation(Config* cfg, GPUInfo* gpu) {
                       cp0, cp1, uint2(0, 0), cfg->minenergy, cfg->sradius* cfg->sradius, minstep* R_C0* cfg->unitinmm, cfg->srctype,
                       cfg->voidtime, cfg->maxdetphoton,
                       cfg->medianum - 1, cfg->detnum, cfg->polmedianum, cfg->maxgate, ABS(cfg->sradius + 2.f) < EPS /*isatomic*/,
-                      (uint)cfg->maxvoidstep, cfg->issaveseed > 0, (uint)cfg->issaveref, cfg->isspecular > 0,
+                      (uint)cfg->maxvoidstep, cfg->issaveseed > 0, (uint)cfg->issaveref, cfg->isspecular > 0, (uint)cfg->istrajstokes,
                       cfg->maxdetphoton * hostdetreclen, cfg->seed, (uint)cfg->outputtype, 0, 0, cfg->faststep,
                       cfg->debuglevel, cfg->savedetflag, hostdetreclen, partialdata, w0offset, cfg->mediabyte,
                       (uint)cfg->maxjumpdebug, cfg->gscatter, is2d, cfg->replaydet, cfg->srcnum,
@@ -2895,7 +2944,7 @@ void mcx_run_simulation(Config* cfg, GPUInfo* gpu) {
 
     /** Here we determine if the GPU memory of the current device can store all time gates, if not, disabling normalization */
     if (totalgates > gpu[gpuid].maxgate && cfg->isnormalized) {
-        MCX_FPRINTF(stderr, S_RED "WARNING: GPU memory can not hold all time gates, disabling normalization to allow multiple runs\n" S_RESET);
+        MCX_FPRINTF(cfg->flog, S_RED "WARNING: GPU memory can not hold all time gates, disabling normalization to allow multiple runs\n" S_RESET);
         cfg->isnormalized = 0;
     }
 
@@ -3086,7 +3135,7 @@ void mcx_run_simulation(Config* cfg, GPUInfo* gpu) {
      * Saving detected photon is enabled by default, but in case if a user disabled this feature, a warning is printed
      */
     if (cfg->issavedet) {
-        MCX_FPRINTF(stderr, S_RED "WARNING: this MCX binary can not save partial path, please recompile mcx and make sure -D SAVE_DETECTORS is used by nvcc\n" S_RESET);
+        MCX_FPRINTF(cfg->flog, S_RED "WARNING: this MCX binary can not save partial path, please recompile mcx and make sure -D SAVE_DETECTORS is used by nvcc\n" S_RESET);
         cfg->issavedet = 0;
     }
 
@@ -3114,7 +3163,7 @@ void mcx_run_simulation(Config* cfg, GPUInfo* gpu) {
     if (cfg->seed > 0) {
         srand(cfg->seed + threadid);
     } else {
-        srand(time(0));
+        srand(time(0) + threadid);
     }
 
     for (i = 0; i < gpu[gpuid].autothread; i++) {
@@ -3128,7 +3177,8 @@ void mcx_run_simulation(Config* cfg, GPUInfo* gpu) {
      */
     tic = StartTimer();
     #pragma omp master
-    {
+
+    if (cfg->printnum >= 0) {
         mcx_printheader(cfg);
 
 #ifdef MCX_TARGET_NAME
@@ -3141,13 +3191,14 @@ void mcx_run_simulation(Config* cfg, GPUInfo* gpu) {
         MCX_FPRINTF(cfg->flog, "- compiled with: RNG [%s] with Seed Length [%d]\n", MCX_RNG_NAME, (int)((sizeof(RandType)*RAND_BUF_LEN) >> 2));
         fflush(cfg->flog);
     }
+
     #pragma omp barrier
 
     /**
      * Copy all host buffers to the GPU
      */
-    MCX_FPRINTF(cfg->flog, "\nGPU=%d (%s) threadph=%d extra=%d np=%ld nthread=%d maxgate=%d repetition=%d\n", gpuid + 1, gpu[gpuid].name, param.threadphoton, param.oddphotons,
-                gpuphoton, gpu[gpuid].autothread, gpu[gpuid].maxgate, ABS(cfg->respin));
+    MCX_FPRINTF(cfg->flog, "\nGPU=%d (%s) threadph=%d extra=%d np=%.0f nthread=%d maxgate=%d repetition=%d\n", gpuid + 1, gpu[gpuid].name, param.threadphoton, param.oddphotons,
+                (double)gpuphoton, gpu[gpuid].autothread, gpu[gpuid].maxgate, ABS(cfg->respin));
     MCX_FPRINTF(cfg->flog, "initializing streams ...\t");
     fflush(cfg->flog);
 
@@ -3494,7 +3545,7 @@ are more than what your have specified (%d), please use the --maxjumpdebug optio
 is more than what your have specified (%d), please use the -H option to specify a greater number\t" S_RESET
                                 , detected, cfg->maxdetphoton);
                 } else {
-                    MCX_FPRINTF(cfg->flog, "detected " S_BOLD "" S_BLUE "%d photons" S_RESET", total: " S_BOLD "" S_BLUE "%ld" S_RESET"\t", detected, cfg->detectedcount + detected);
+                    MCX_FPRINTF(cfg->flog, "detected " S_BOLD "" S_BLUE "%d photons" S_RESET", total: " S_BOLD "" S_BLUE "%.0f" S_RESET"\t", detected, (double)cfg->detectedcount + detected);
                 }
 
                 /**
@@ -3811,7 +3862,7 @@ is more than what your have specified (%d), please use the -H option to specify 
 #ifndef MCX_CONTAINER
 
         if ((cfg->debuglevel & (MCX_DEBUG_MOVE | MCX_DEBUG_MOVE_ONLY)) && cfg->parentid == mpStandalone && cfg->exportdebugdata) {
-            cfg->his.colcount = MCX_DEBUG_REC_LEN;
+            cfg->his.colcount = debuglen;
             cfg->his.savedphoton = cfg->debugdatalen;
             cfg->his.totalphoton = cfg->nphoton;
             cfg->his.detected = 0;
@@ -3849,8 +3900,8 @@ is more than what your have specified (%d), please use the -H option to specify 
         /**
          * Report simulation summary, total energy here equals total simulated photons+unfinished photons for all threads
          */
-        MCX_FPRINTF(cfg->flog, "simulated %ld photons (%ld) with %d threads (repeat x%d)\nMCX simulation speed: " S_BOLD "" S_BLUE "%.2f photon/ms\n" S_RESET,
-                    (long int)cfg->nphoton * ((cfg->respin > 1) ? (cfg->respin) : 1), (long int)cfg->nphoton * ((cfg->respin > 1) ? (cfg->respin) : 1),
+        MCX_FPRINTF(cfg->flog, "simulated %.0f photons (%.0f) with %d threads (repeat x%d)\nMCX simulation speed: " S_BOLD "" S_BLUE "%.2f photon/ms\n" S_RESET,
+                    (double)cfg->nphoton * ((cfg->respin > 1) ? (cfg->respin) : 1), (double)cfg->nphoton * ((cfg->respin > 1) ? (cfg->respin) : 1),
                     gpu[gpuid].autothread, ABS(cfg->respin),
                     ((cfg->issavedet == FILL_MAXDETPHOTON) ? cfg->energytot : ((double)cfg->nphoton * ((cfg->respin > 1) ? (cfg->respin) : 1))) / max(1, cfg->runtime));
         fflush(cfg->flog);

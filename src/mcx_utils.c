@@ -108,7 +108,7 @@
 const char shortopt[] = {'h', 'i', 'f', 'n', 't', 'T', 's', 'a', 'g', 'b', '-', 'z', 'u', 'H', 'P',
                          'd', 'r', 'S', 'p', 'e', 'U', 'R', 'l', 'L', '-', 'I', '-', 'G', 'M', 'A', 'E', 'v', 'D',
                          'k', 'q', 'Y', 'O', 'F', '-', '-', 'x', 'X', '-', 'K', 'm', 'V', 'B', 'W', 'w', '-',
-                         '-', '-', 'Z', 'j', '-', '-', '\0'
+                         '-', '-', 'Z', 'j', '-', '-', '-', '\0'
                         };
 
 /**
@@ -128,7 +128,7 @@ const char* fullopt[] = {"--help", "--interactive", "--input", "--photon",
                          "--maxvoidstep", "--saveexit", "--saveref", "--gscatter", "--mediabyte",
                          "--momentum", "--specular", "--bc", "--workload", "--savedetflag",
                          "--internalsrc", "--bench", "--dumpjson", "--zip", "--json", "--atomic",
-                         "--srcid", ""
+                         "--srcid", "--trajstokes", ""
                         };
 
 /**
@@ -314,6 +314,7 @@ void mcx_initcfg(Config* cfg) {
     cfg->debuglevel = 0;
     cfg->issaveseed = 0;
     cfg->issaveexit = 0;
+    cfg->istrajstokes = 0;
     cfg->ismomentum = 0;
     cfg->internalsrc = 0;
     cfg->replay.seed = NULL;
@@ -1028,9 +1029,9 @@ void mcx_savejdet(float* ppath, void* seeds, uint count, int doappend, Config* c
     }
 
     if (cfg->his.detected == 0  && cfg->his.savedphoton) {
-        char colnum[] = {1, 3, 1, 1};
-        char* dtype[] = {"uint32", "single", "single", "uint32"};
-        char* dname[] = {"photonid", "p", "w0", "srcid"};
+        char colnum[] = {1, 3, 1, 1, 4};
+        char* dtype[] = {"uint32", "single", "single", "uint32", "single"};
+        char* dname[] = {"photonid", "p", "w0", "srcid", "iquv"};
         int activecol = sizeof(colnum) - (cfg->his.totalsource == 1);
         cJSON_AddItemToObject(obj, "Trajectory", dat = cJSON_CreateObject());
 
@@ -1490,6 +1491,11 @@ void mcx_preprocess(Config* cfg) {
     if (cfg->debuglevel & MCX_DEBUG_MOVE_ONLY) {
         cfg->issave2pt = 0;
         cfg->issavedet = 0;
+    }
+
+    // if neither trajectory or polarization is enabled, disable istrajstokes flag
+    if (!(cfg->debuglevel & (MCX_DEBUG_MOVE | MCX_DEBUG_MOVE_ONLY)) || !((cfg->mediabyte <= 4) && (cfg->polmedianum > 0))) {
+        cfg->istrajstokes = 0;
     }
 
     for (int i = 0; i < 6; i++)
@@ -3576,19 +3582,20 @@ void mcx_loadvolume(char* filename, Config* cfg, int isbuf) {
         for (i = 0; i < datalen; i++) {
             f2h[0] = val[i << (1 + offset)] * cfg->unitinmm;       // mua
             f2h[1] = val[(i << (1 + offset)) + 1] * cfg->unitinmm; // mus
+            cfg->vol[i] = mcx_float2half2(f2h);
 
             if (f2h[0] != f2h[0] || f2h[1] != f2h[1]) { /*if one of mua/mus is nan in continuous medium, convert to 0-voxel*/
                 cfg->vol[i] = 0;
-                continue;
+
+                if (cfg->mediabyte == MEDIA_AS_F2H) {
+                    continue;
+                }
             }
 
             if (cfg->mediabyte == MEDIA_ASGN_F2H) {
-                cfg->vol[i] = mcx_float2half2(f2h);
                 f2h[0] = val[(i << 2) + 2];   // g
                 f2h[1] = val[(i << 2) + 3];   // n
                 cfg->vol[i + datalen] = mcx_float2half2(f2h);
-            } else {
-                cfg->vol[i] = mcx_float2half2(f2h);
             }
         }
     } else if (cfg->mediabyte == MEDIA_2LABEL_SPLIT) {
@@ -3707,6 +3714,7 @@ void mcx_replayprep(int* detid, float* ppath, History* his, Config* cfg) {
             }
 
             cfg->replay.weight[cfg->nphoton] = 1.f;
+            cfg->replay.tof[cfg->nphoton] = 0.f;
             cfg->replay.detid[cfg->nphoton] = (detid != NULL) ? detid[i] : 1;
 
             for (j = 0; j < his->maxmedia; j++) {
@@ -4030,6 +4038,7 @@ void mcx_loadseedfile(Config* cfg) {
                 }
 
                 cfg->replay.weight[cfg->nphoton] = 1.f;
+                cfg->replay.tof[cfg->nphoton] = 0.f;
                 cfg->replay.detid[cfg->nphoton] = (hasdetid) ? (int)(ppath[i * his.colcount]) : 1;
 
                 for (j = hasdetid; j < his.maxmedia + hasdetid; j++) {
@@ -5147,6 +5156,8 @@ void mcx_parsecmd(int argc, char* argv[], Config* cfg) {
                         cfg->sradius = (isatomic) ? -2.f : 0.f;
                     } else if (strcmp(argv[i] + 2, "srcid") == 0) {
                         i = mcx_readarg(argc, argv, i, &(cfg->srcid), "int");
+                    } else if (strcmp(argv[i] + 2, "trajstokes") == 0) {
+                        i = mcx_readarg(argc, argv, i, &(cfg->istrajstokes), "int");
                     } else if (strcmp(argv[i] + 2, "internalsrc") == 0) {
                         i = mcx_readarg(argc, argv, i, &(cfg->internalsrc), "int");
                     } else {
@@ -5351,10 +5362,10 @@ int mcx_float2half2(float input[2]) {
     f2h.f[1] = input[1];
 
     /**
-    float to half conversion
-    https://stackoverflow.com/questions/3026441/float32-to-float16/5587983#5587983
-    https://gamedev.stackexchange.com/a/17410  (for denorms)
-    */
+     * float to half conversion
+     * https://stackoverflow.com/questions/3026441/float32-to-float16/5587983#5587983
+     * https://gamedev.stackexchange.com/a/17410  (for denorms)
+     */
     m = ((f2h.i[0] >> 13) & 0x03ff);
     tmp = (f2h.i[0] >> 23) & 0xff; /*exponent*/
     tmp = (tmp - 0x70) & ((unsigned int)((int)(0x70 - tmp) >> 4) >> 27);
@@ -5442,7 +5453,8 @@ int mcx_run_from_json(char* jsonstr) {
  */
 
 void mcx_printheader(Config* cfg) {
-    MCX_FPRINTF(cfg->flog, S_MAGENTA"\
+    if (cfg->printnum >= 0 ) {
+        MCX_FPRINTF(cfg->flog, S_MAGENTA"\
 ###############################################################################\n\
 #                      Monte Carlo eXtreme (MCX) -- CUDA                      #\n\
 #          Copyright (c) 2009-2024 Qianqian Fang <q.fang at neu.edu>          #\n\
@@ -5462,6 +5474,7 @@ void mcx_printheader(Config* cfg) {
 ###############################################################################\n\
 $Rev::      $" S_GREEN MCX_VERSION S_MAGENTA " $Date::                       $ by $Author::             $\n\
 ###############################################################################\n" S_RESET);
+    }
 }
 
 /**
@@ -5510,7 +5523,7 @@ where possible parameters include (the first value in [*|*] is the default)\n\
                                eg: --bc ______010 saves photons exiting at y=0\n\
  -u [1.|float] (--unitinmm)    defines the length unit for the grid edge\n\
  -U [1|0]      (--normalize)   1 to normalize flux to unitary; 0 save raw\n\
- -E [0|int|mch](--seed)        set random-number-generator seed, -1 to generate\n\
+ -E [1648335518|int|mch](--seed) set rand-number-generator seed, -1 to generate\n\
                                if an mch file is followed, MCX \"replays\" \n\
                                the detected photon; the replay mode can be used\n\
                                to calculate the mua/mus Jacobian matrices\n\
@@ -5661,6 +5674,7 @@ where possible parameters include (the first value in [*|*] is the default)\n\
  --srcid  [0|-1,0,1,2,..]      -1 simulate multi-source separately;0 all sources\n\
                                together; a positive integer runs a single source\n\
  --internalsrc  [0|1]          set to 1 to skip entry search to speedup launch\n\
+ --trajstokes   [0|1]          set to 1 to save Stokes IQUV in trajectory data\n\
  --maxvoidstep  [1000|int]     maximum distance (in voxel unit) of a photon that\n\
                                can travel before entering the domain, if \n\
                                launched outside (i.e. a widefield source)\n\
