@@ -1,0 +1,10 @@
+^C:\PROJECTS\MCX\PMCX\BUILD\TEMP.WIN-AMD64-CPYTHON-310\RELEASE\_PMCX\CMAKEFILES\3F5E5FE00C37F09874C3445CB7F6C39D\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Projects/mcx/src -BC:/Projects/mcx/pmcx/build/temp.win-amd64-cpython-310/Release/_pmcx --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Projects/mcx/pmcx/build/temp.win-amd64-cpython-310/Release/_pmcx/mcx.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

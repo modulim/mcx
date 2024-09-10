@@ -45,11 +45,17 @@ set(
     -DSAVE_DETECTORS -Xcompiler -fPIC ${OMPFLAG}
     )
 
+
 # C Options
 set(CMAKE_C_FLAGS "-g -Wall -std=c99 -fPIC")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/../bin)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/../lib)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
+
+cmake_path(SET ZLIB_ROOT "C:/Program Files (x86)/GnuWin32/src")
+cmake_path(SET ZLIB_LIBRARY "C:/Program Files (x86)/GnuWin32/bin")
+cmake_path(SET ZLIB_INCLUDE_DIR "C:/Program Files (x86)/GnuWin32/include")
 
 # Add include directories
 include_directories(cjson ubj zmat zmat/easylzma)

@@ -1,0 +1,106 @@
+﻿  Building Custom Rule C:/Projects/mcx/src/CMakeLists.txt
+  mcxlab.cpp
+C:\Projects\mcx\src\mcxlab.cpp(145,17): warning C4244: 'argument': conversion from 'size_t' to 'double', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(146,17): warning C4244: 'argument': conversion from 'size_t' to 'double', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(147,17): warning C4244: 'argument': conversion from 'size_t' to 'double', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(182,33): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(407,96): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(410,33): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(418,59): warning C4018: '<': signed/unsigned mismatch
+C:\Projects\mcx\src\mcxlab.cpp(423,59): warning C4018: '<': signed/unsigned mismatch
+C:\Projects\mcx\src\mcxlab.cpp(452,45): warning C4244: '=': conversion from 'size_t' to 'double', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(488,39): warning C4018: '<': signed/unsigned mismatch
+C:\Projects\mcx\src\mcxlab.cpp(543,5): warning C4244: '=': conversion from 'double' to 'size_t', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(544,5): warning C4244: '=': conversion from 'double' to 'unsigned int', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(545,5): warning C4244: '=': conversion from 'double' to 'unsigned int', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(546,5): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(547,5): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(548,5): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(549,5): warning C4244: '=': conversion from 'double' to 'unsigned int', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(550,5): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(551,5): warning C4244: '=': conversion from 'double' to 'unsigned int', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(552,5): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(553,5): warning C4244: '=': conversion from 'double' to 'char', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(554,5): warning C4244: '=': conversion from 'double' to 'char', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(555,5): warning C4244: '=': conversion from 'double' to 'char', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(556,5): warning C4244: '=': conversion from 'double' to 'char', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(557,5): warning C4244: '=': conversion from 'double' to 'char', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(558,5): warning C4244: '=': conversion from 'double' to 'char', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(559,5): warning C4244: '=': conversion from 'double' to 'char', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(560,5): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(561,5): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(562,5): warning C4244: '=': conversion from 'double' to 'unsigned int', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(563,5): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(564,5): warning C4244: '=': conversion from 'double' to 'char', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(565,5): warning C4244: '=': conversion from 'double' to 'char', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(566,5): warning C4244: '=': conversion from 'double' to 'char', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(567,5): warning C4244: '=': conversion from 'double' to 'char', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(568,5): warning C4244: '=': conversion from 'double' to 'char', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(569,5): warning C4244: '=': conversion from 'double' to 'char', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(570,5): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(571,5): warning C4244: '=': conversion from 'double' to 'char', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(572,5): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(573,5): warning C4244: '=': conversion from 'double' to 'unsigned int', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(574,5): warning C4244: '=': conversion from 'double' to 'unsigned int', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(575,5): warning C4244: '=': conversion from 'double' to 'unsigned int', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(576,5): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(577,5): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(578,5): warning C4244: '=': conversion from 'double' to 'char', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(579,5): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(580,5): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(581,5): warning C4244: '=': conversion from 'double' to 'unsigned int', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(582,5): warning C4244: '=': conversion from 'double' to 'unsigned int', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(583,5): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(594,64): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(606,44): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(614,27): warning C4018: '<': signed/unsigned mismatch
+C:\Projects\mcx\src\mcxlab.cpp(615,87): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(629,64): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(641,44): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(649,27): warning C4018: '<': signed/unsigned mismatch
+C:\Projects\mcx\src\mcxlab.cpp(650,87): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(664,67): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(676,44): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(684,27): warning C4018: '<': signed/unsigned mismatch
+C:\Projects\mcx\src\mcxlab.cpp(685,90): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(699,67): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(711,44): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(719,27): warning C4018: '<': signed/unsigned mismatch
+C:\Projects\mcx\src\mcxlab.cpp(720,90): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(743,61): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(765,65): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(800,40): warning C4244: '=': conversion from 'double' to 'unsigned int', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(808,40): warning C4244: '=': conversion from 'float' to 'unsigned int', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(927,33): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(936,27): warning C4018: '<': signed/unsigned mismatch
+C:\Projects\mcx\src\mcxlab.cpp(937,73): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(949,35): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(958,27): warning C4018: '<': signed/unsigned mismatch
+C:\Projects\mcx\src\mcxlab.cpp(959,73): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(975,38): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(984,27): warning C4018: '<': signed/unsigned mismatch
+C:\Projects\mcx\src\mcxlab.cpp(985,74): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(990,17): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(1008,17): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(1037,17): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(1067,17): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(1093,17): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(1130,39): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(1146,39): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(1168,40): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(1177,17): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(1192,17): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(1202,33): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(1203,33): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(1216,30): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(1219,34): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(1232,17): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(1252,31): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(1278,37): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Projects\mcx\src\mcxlab.cpp(897,32): warning C4101: 'tmp': unreferenced local variable
+C:\Projects\mcx\src\mcxlab.cpp(1298,5): warning C4297: 'mcx_throw_exception': function assumed not to throw an exception but does
+  C:\Projects\mcx\src\mcxlab.cpp(1298,5):
+  The function is extern "C" and /EHc was specified
+  
+C:\Projects\mcx\src\mcxlab.cpp(187,1): warning C4700: uninitialized local variable 'cfg' used
+C:\Program Files\Microsoft Visual Studio\2022\Professional\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(1431,23): error MSB4023: Cannot evaluate the item metadata "%(RootDir)". The item metadata "%(FullPath)" cannot be applied to the path "C:/Projects/mcx/lib/Debug/C:/Projects/mcx/src/../mcxlab/mcx.lib". The given path's format is not supported.

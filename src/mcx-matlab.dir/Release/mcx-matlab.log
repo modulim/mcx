@@ -1,0 +1,4 @@
+﻿  Building NVCC (Device) object CMakeFiles/mcx-matlab.dir/Release/mcx-matlab_generated_mcx_core.cu.obj
+CUSTOMBUILD : CMake error : Not a file: C:/Projects/mcx/src/CMakeFiles/mcx-matlab.dir//mcx-matlab_generated_mcx_core.cu.obj.Release.cmake
+CUSTOMBUILD : CMake error : Error processing file: C:/Projects/mcx/src/CMakeFiles/mcx-matlab.dir//mcx-matlab_generated_mcx_core.cu.obj.Release.cmake
+C:\Program Files\Microsoft Visual Studio\2022\Professional\MSBuild\Microsoft\VC\v170\Microsoft.CppCommon.targets(254,5): error MSB8066: Custom build for 'C:\Projects\mcx\src\CMakeFiles\c7493055500962b7282a1324981dc412\mcx-matlab_generated_mcx_core.cu.obj.rule;C:\Projects\mcx\src\mcx_core.cu;C:\Projects\mcx\src\CMakeLists.txt' exited with code 1.

@@ -1,0 +1,58 @@
+﻿  1>Checking Build System
+  CMake is re-running because generate.stamp.list is missing.
+  -- Building for: Visual Studio 17 2022
+  CMake Deprecation Warning at CMakeLists.txt:14 (cmake_minimum_required):
+    Compatibility with CMake < 3.5 will be removed from a future version of
+    CMake.
+  
+    Update the VERSION argument <min> value or use a ...<max> suffix to tell
+    CMake that the project does not need compatibility with older versions.
+  
+  
+  -- The C compiler identification is MSVC 19.39.33519.0
+  -- The CXX compiler identification is MSVC 19.39.33519.0
+  -- Detecting C compiler ABI info
+  -- Detecting C compiler ABI info - done
+  -- Check for working C compiler: C:/Program Files/Microsoft Visual Studio/2022/Professional/VC/Tools/MSVC/14.39.33519/bin/Hostx64/x64/cl.exe - skipped
+  -- Detecting C compile features
+  -- Detecting C compile features - done
+  -- Detecting CXX compiler ABI info
+  -- Detecting CXX compiler ABI info - done
+  -- Check for working CXX compiler: C:/Program Files/Microsoft Visual Studio/2022/Professional/VC/Tools/MSVC/14.39.33519/bin/Hostx64/x64/cl.exe - skipped
+  -- Detecting CXX compile features
+  -- Detecting CXX compile features - done
+  CMake Warning (dev) at CMakeLists.txt:18 (find_package):
+    Policy CMP0146 is not set: The FindCUDA module is removed.  Run "cmake
+    --help-policy CMP0146" for policy details.  Use the cmake_policy command to
+    set the policy and suppress this warning.
+  
+  This warning is for project developers.  Use -Wno-dev to suppress it.
+  
+  -- Found OpenMP_C: -openmp (found version "2.0")
+  -- Found OpenMP_CXX: -openmp (found version "2.0")
+  -- Found OpenMP: TRUE (found version "2.0")
+  CMake Deprecation Warning at zmat/CMakeLists.txt:7 (cmake_minimum_required):
+    Compatibility with CMake < 3.5 will be removed from a future version of
+    CMake.
+  
+    Update the VERSION argument <min> value or use a ...<max> suffix to tell
+    CMake that the project does not need compatibility with older versions.
+  
+  
+  CMake Warning (dev) at zmat/CMakeLists.txt:15 (find_package):
+    Policy CMP0074 is not set: find_package uses <PackageName>_ROOT variables.
+    Run "cmake --help-policy CMP0074" for policy details.  Use the cmake_policy
+    command to set the policy and suppress this warning.
+  
+    CMake variable ZLIB_ROOT is set to:
+  
+      C:/Program Files (x86)/GnuWin32/src
+  
+    For compatibility, CMake is ignoring the variable.
+  This warning is for project developers.  Use -Wno-dev to suppress it.
+  
+  -- Found ZLIB: C:/Program Files (x86)/GnuWin32/bin (found version "1.2.3")
+  -- Found Matlab: C:/Program Files/MATLAB/R2013a/extern/include (found version "8.1")
+  -- Configuring done (7.6s)
+  -- Generating done (0.1s)
+  -- Build files have been written to: C:/Projects/mcx/src

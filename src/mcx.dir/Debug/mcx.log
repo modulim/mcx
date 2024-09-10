@@ -1,0 +1,4 @@
+﻿  Building NVCC (Device) object CMakeFiles/mcx.dir/Debug/mcx_generated_mcx_core.cu.obj
+CUSTOMBUILD : CMake error : Not a file: C:/Projects/mcx/src/CMakeFiles/mcx.dir//mcx_generated_mcx_core.cu.obj.Debug.cmake
+CUSTOMBUILD : CMake error : Error processing file: C:/Projects/mcx/src/CMakeFiles/mcx.dir//mcx_generated_mcx_core.cu.obj.Debug.cmake
+C:\Program Files\Microsoft Visual Studio\2022\Professional\MSBuild\Microsoft\VC\v170\Microsoft.CppCommon.targets(254,5): error MSB8066: Custom build for 'C:\Projects\mcx\src\mcx_core.cu;C:\Projects\mcx\src\CMakeLists.txt' exited with code 1.

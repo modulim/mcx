@@ -1,0 +1,364 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{4F5E5A49-F0D0-3B2C-A46B-B77FEE3C9FC3}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.22621.0</WindowsTargetPlatformVersion>
+    <Platform>x64</Platform>
+    <ProjectName>mcx-exe</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Projects\mcx\bin\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">mcx-exe.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">mcx</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Projects\mcx\bin\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">mcx-exe.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">mcx</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Projects\mcx\bin\MinSizeRel\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">mcx-exe.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">mcx</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Projects\mcx\bin\RelWithDebInfo\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">mcx-exe.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">mcx</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</GenerateManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\sharedrd\AppData\Local\Programs\Python\Python310\Include;C:\Projects\mcx\src\cjson;C:\Projects\mcx\src\ubj;C:\Projects\mcx\src\zmat;C:\Projects\mcx\src\zmat\easylzma;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/Program Files (x86)/GnuWin32/include"</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <MinimalRebuild></MinimalRebuild>
+      <OpenMPSupport>true</OpenMPSupport>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <SupportJustMyCode></SupportJustMyCode>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\sharedrd\AppData\Local\Programs\Python\Python310\Include;C:\Projects\mcx\src\cjson;C:\Projects\mcx\src\ubj;C:\Projects\mcx\src\zmat;C:\Projects\mcx\src\zmat\easylzma;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.8\include;C:\Program Files (x86)\GnuWin32\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\sharedrd\AppData\Local\Programs\Python\Python310\Include;C:\Projects\mcx\src\cjson;C:\Projects\mcx\src\ubj;C:\Projects\mcx\src\zmat;C:\Projects\mcx\src\zmat\easylzma;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.8\include;C:\Program Files (x86)\GnuWin32\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.8\lib\x64\cudart_static.lib;C:\Projects\mcx\lib\Debug\mcx.lib;zmat\Debug\zmat.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.8\lib\x64\cudart_static.lib;C:\Program Files (x86)\GnuWin32\bin;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:/Projects/mcx/src/zmat;C:/Projects/mcx/src/zmat/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Projects/mcx/lib/Debug/mcx.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Projects/mcx/bin/Debug/mcx.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\sharedrd\AppData\Local\Programs\Python\Python310\Include;C:\Projects\mcx\src\cjson;C:\Projects\mcx\src\ubj;C:\Projects\mcx\src\zmat;C:\Projects\mcx\src\zmat\easylzma;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/Program Files (x86)/GnuWin32/include"</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <MinimalRebuild></MinimalRebuild>
+      <OpenMPSupport>true</OpenMPSupport>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <SupportJustMyCode></SupportJustMyCode>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="Release"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\sharedrd\AppData\Local\Programs\Python\Python310\Include;C:\Projects\mcx\src\cjson;C:\Projects\mcx\src\ubj;C:\Projects\mcx\src\zmat;C:\Projects\mcx\src\zmat\easylzma;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.8\include;C:\Program Files (x86)\GnuWin32\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\sharedrd\AppData\Local\Programs\Python\Python310\Include;C:\Projects\mcx\src\cjson;C:\Projects\mcx\src\ubj;C:\Projects\mcx\src\zmat;C:\Projects\mcx\src\zmat\easylzma;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.8\include;C:\Program Files (x86)\GnuWin32\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.8\lib\x64\cudart_static.lib;C:\Projects\mcx\lib\Release\mcx.lib;zmat\Release\zmat.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.8\lib\x64\cudart_static.lib;C:\Program Files (x86)\GnuWin32\bin;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:/Projects/mcx/src/zmat;C:/Projects/mcx/src/zmat/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Projects/mcx/lib/Release/mcx.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Projects/mcx/bin/Release/mcx.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\sharedrd\AppData\Local\Programs\Python\Python310\Include;C:\Projects\mcx\src\cjson;C:\Projects\mcx\src\ubj;C:\Projects\mcx\src\zmat;C:\Projects\mcx\src\zmat\easylzma;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/Program Files (x86)/GnuWin32/include"</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <MinimalRebuild></MinimalRebuild>
+      <OpenMPSupport>true</OpenMPSupport>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <SupportJustMyCode></SupportJustMyCode>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="MinSizeRel"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"MinSizeRel\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\sharedrd\AppData\Local\Programs\Python\Python310\Include;C:\Projects\mcx\src\cjson;C:\Projects\mcx\src\ubj;C:\Projects\mcx\src\zmat;C:\Projects\mcx\src\zmat\easylzma;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.8\include;C:\Program Files (x86)\GnuWin32\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\sharedrd\AppData\Local\Programs\Python\Python310\Include;C:\Projects\mcx\src\cjson;C:\Projects\mcx\src\ubj;C:\Projects\mcx\src\zmat;C:\Projects\mcx\src\zmat\easylzma;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.8\include;C:\Program Files (x86)\GnuWin32\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.8\lib\x64\cudart_static.lib;C:\Projects\mcx\lib\MinSizeRel\mcx.lib;zmat\MinSizeRel\zmat.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.8\lib\x64\cudart_static.lib;C:\Program Files (x86)\GnuWin32\bin;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:/Projects/mcx/src/zmat;C:/Projects/mcx/src/zmat/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Projects/mcx/lib/MinSizeRel/mcx.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Projects/mcx/bin/MinSizeRel/mcx.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\sharedrd\AppData\Local\Programs\Python\Python310\Include;C:\Projects\mcx\src\cjson;C:\Projects\mcx\src\ubj;C:\Projects\mcx\src\zmat;C:\Projects\mcx\src\zmat\easylzma;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/Program Files (x86)/GnuWin32/include"</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <MinimalRebuild></MinimalRebuild>
+      <OpenMPSupport>true</OpenMPSupport>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <SupportJustMyCode></SupportJustMyCode>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="RelWithDebInfo"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"RelWithDebInfo\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\sharedrd\AppData\Local\Programs\Python\Python310\Include;C:\Projects\mcx\src\cjson;C:\Projects\mcx\src\ubj;C:\Projects\mcx\src\zmat;C:\Projects\mcx\src\zmat\easylzma;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.8\include;C:\Program Files (x86)\GnuWin32\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\sharedrd\AppData\Local\Programs\Python\Python310\Include;C:\Projects\mcx\src\cjson;C:\Projects\mcx\src\ubj;C:\Projects\mcx\src\zmat;C:\Projects\mcx\src\zmat\easylzma;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.8\include;C:\Program Files (x86)\GnuWin32\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.8\lib\x64\cudart_static.lib;C:\Projects\mcx\lib\RelWithDebInfo\mcx.lib;zmat\RelWithDebInfo\zmat.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.8\lib\x64\cudart_static.lib;C:\Program Files (x86)\GnuWin32\bin;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:/Projects/mcx/src/zmat;C:/Projects/mcx/src/zmat/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Projects/mcx/lib/RelWithDebInfo/mcx.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Projects/mcx/bin/RelWithDebInfo/mcx.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Projects\mcx\src\CMakeLists.txt">
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Projects/mcx/src/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Projects/mcx/src -BC:/Projects/mcx/pmcx/build/temp.win-amd64-cpython-310/Release/_pmcx --check-stamp-file C:/Projects/mcx/pmcx/build/temp.win-amd64-cpython-310/Release/_pmcx/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeParseImplicitLinkInfo.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FindCUDA.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FindCUDA\run_nvcc.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FindCUDA\select_compute_arch.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FindMatlab.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FindOpenMP.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FindPython\Support.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FindPython3.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\WindowsPaths.cmake;C:\Projects\mcx\pmcx\build\temp.win-amd64-cpython-310\Release\_pmcx\CMakeFiles\3.30.1\CMakeCCompiler.cmake;C:\Projects\mcx\pmcx\build\temp.win-amd64-cpython-310\Release\_pmcx\CMakeFiles\3.30.1\CMakeCXXCompiler.cmake;C:\Projects\mcx\pmcx\build\temp.win-amd64-cpython-310\Release\_pmcx\CMakeFiles\3.30.1\CMakeRCCompiler.cmake;C:\Projects\mcx\pmcx\build\temp.win-amd64-cpython-310\Release\_pmcx\CMakeFiles\3.30.1\CMakeSystem.cmake;C:\Projects\mcx\pmcx\build\temp.win-amd64-cpython-310\Release\_pmcx\CMakeFiles\_pmcx.dir\_pmcx_generated_mcx_core.cu.obj.cmake.pre-gen;C:\Projects\mcx\pmcx\build\temp.win-amd64-cpython-310\Release\_pmcx\CMakeFiles\_pmcx.dir\_pmcx_generated_mcx_core.cu.obj.depend;C:\Projects\mcx\pmcx\build\temp.win-amd64-cpython-310\Release\_pmcx\CMakeFiles\mcx-matlab.dir\mcx-matlab_generated_mcx_core.cu.obj.cmake.pre-gen;C:\Projects\mcx\pmcx\build\temp.win-amd64-cpython-310\Release\_pmcx\CMakeFiles\mcx-matlab.dir\mcx-matlab_generated_mcx_core.cu.obj.depend;C:\Projects\mcx\pmcx\build\temp.win-amd64-cpython-310\Release\_pmcx\CMakeFiles\mcx.dir\mcx_generated_mcx_core.cu.obj.cmake.pre-gen;C:\Projects\mcx\pmcx\build\temp.win-amd64-cpython-310\Release\_pmcx\CMakeFiles\mcx.dir\mcx_generated_mcx_core.cu.obj.depend;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Projects\mcx\pmcx\build\temp.win-amd64-cpython-310\Release\_pmcx\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Projects/mcx/src/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Projects/mcx/src -BC:/Projects/mcx/pmcx/build/temp.win-amd64-cpython-310/Release/_pmcx --check-stamp-file C:/Projects/mcx/pmcx/build/temp.win-amd64-cpython-310/Release/_pmcx/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeParseImplicitLinkInfo.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FindCUDA.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FindCUDA\run_nvcc.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FindCUDA\select_compute_arch.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FindMatlab.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FindOpenMP.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FindPython\Support.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FindPython3.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\WindowsPaths.cmake;C:\Projects\mcx\pmcx\build\temp.win-amd64-cpython-310\Release\_pmcx\CMakeFiles\3.30.1\CMakeCCompiler.cmake;C:\Projects\mcx\pmcx\build\temp.win-amd64-cpython-310\Release\_pmcx\CMakeFiles\3.30.1\CMakeCXXCompiler.cmake;C:\Projects\mcx\pmcx\build\temp.win-amd64-cpython-310\Release\_pmcx\CMakeFiles\3.30.1\CMakeRCCompiler.cmake;C:\Projects\mcx\pmcx\build\temp.win-amd64-cpython-310\Release\_pmcx\CMakeFiles\3.30.1\CMakeSystem.cmake;C:\Projects\mcx\pmcx\build\temp.win-amd64-cpython-310\Release\_pmcx\CMakeFiles\_pmcx.dir\_pmcx_generated_mcx_core.cu.obj.cmake.pre-gen;C:\Projects\mcx\pmcx\build\temp.win-amd64-cpython-310\Release\_pmcx\CMakeFiles\_pmcx.dir\_pmcx_generated_mcx_core.cu.obj.depend;C:\Projects\mcx\pmcx\build\temp.win-amd64-cpython-310\Release\_pmcx\CMakeFiles\mcx-matlab.dir\mcx-matlab_generated_mcx_core.cu.obj.cmake.pre-gen;C:\Projects\mcx\pmcx\build\temp.win-amd64-cpython-310\Release\_pmcx\CMakeFiles\mcx-matlab.dir\mcx-matlab_generated_mcx_core.cu.obj.depend;C:\Projects\mcx\pmcx\build\temp.win-amd64-cpython-310\Release\_pmcx\CMakeFiles\mcx.dir\mcx_generated_mcx_core.cu.obj.cmake.pre-gen;C:\Projects\mcx\pmcx\build\temp.win-amd64-cpython-310\Release\_pmcx\CMakeFiles\mcx.dir\mcx_generated_mcx_core.cu.obj.depend;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Projects\mcx\pmcx\build\temp.win-amd64-cpython-310\Release\_pmcx\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule C:/Projects/mcx/src/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Projects/mcx/src -BC:/Projects/mcx/pmcx/build/temp.win-amd64-cpython-310/Release/_pmcx --check-stamp-file C:/Projects/mcx/pmcx/build/temp.win-amd64-cpython-310/Release/_pmcx/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeParseImplicitLinkInfo.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FindCUDA.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FindCUDA\run_nvcc.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FindCUDA\select_compute_arch.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FindMatlab.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FindOpenMP.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FindPython\Support.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FindPython3.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\WindowsPaths.cmake;C:\Projects\mcx\pmcx\build\temp.win-amd64-cpython-310\Release\_pmcx\CMakeFiles\3.30.1\CMakeCCompiler.cmake;C:\Projects\mcx\pmcx\build\temp.win-amd64-cpython-310\Release\_pmcx\CMakeFiles\3.30.1\CMakeCXXCompiler.cmake;C:\Projects\mcx\pmcx\build\temp.win-amd64-cpython-310\Release\_pmcx\CMakeFiles\3.30.1\CMakeRCCompiler.cmake;C:\Projects\mcx\pmcx\build\temp.win-amd64-cpython-310\Release\_pmcx\CMakeFiles\3.30.1\CMakeSystem.cmake;C:\Projects\mcx\pmcx\build\temp.win-amd64-cpython-310\Release\_pmcx\CMakeFiles\_pmcx.dir\_pmcx_generated_mcx_core.cu.obj.cmake.pre-gen;C:\Projects\mcx\pmcx\build\temp.win-amd64-cpython-310\Release\_pmcx\CMakeFiles\_pmcx.dir\_pmcx_generated_mcx_core.cu.obj.depend;C:\Projects\mcx\pmcx\build\temp.win-amd64-cpython-310\Release\_pmcx\CMakeFiles\mcx-matlab.dir\mcx-matlab_generated_mcx_core.cu.obj.cmake.pre-gen;C:\Projects\mcx\pmcx\build\temp.win-amd64-cpython-310\Release\_pmcx\CMakeFiles\mcx-matlab.dir\mcx-matlab_generated_mcx_core.cu.obj.depend;C:\Projects\mcx\pmcx\build\temp.win-amd64-cpython-310\Release\_pmcx\CMakeFiles\mcx.dir\mcx_generated_mcx_core.cu.obj.cmake.pre-gen;C:\Projects\mcx\pmcx\build\temp.win-amd64-cpython-310\Release\_pmcx\CMakeFiles\mcx.dir\mcx_generated_mcx_core.cu.obj.depend;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Projects\mcx\pmcx\build\temp.win-amd64-cpython-310\Release\_pmcx\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule C:/Projects/mcx/src/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Projects/mcx/src -BC:/Projects/mcx/pmcx/build/temp.win-amd64-cpython-310/Release/_pmcx --check-stamp-file C:/Projects/mcx/pmcx/build/temp.win-amd64-cpython-310/Release/_pmcx/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeParseImplicitLinkInfo.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FindCUDA.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FindCUDA\run_nvcc.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FindCUDA\select_compute_arch.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FindMatlab.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FindOpenMP.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FindPython\Support.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\FindPython3.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.30\Modules\Platform\WindowsPaths.cmake;C:\Projects\mcx\pmcx\build\temp.win-amd64-cpython-310\Release\_pmcx\CMakeFiles\3.30.1\CMakeCCompiler.cmake;C:\Projects\mcx\pmcx\build\temp.win-amd64-cpython-310\Release\_pmcx\CMakeFiles\3.30.1\CMakeCXXCompiler.cmake;C:\Projects\mcx\pmcx\build\temp.win-amd64-cpython-310\Release\_pmcx\CMakeFiles\3.30.1\CMakeRCCompiler.cmake;C:\Projects\mcx\pmcx\build\temp.win-amd64-cpython-310\Release\_pmcx\CMakeFiles\3.30.1\CMakeSystem.cmake;C:\Projects\mcx\pmcx\build\temp.win-amd64-cpython-310\Release\_pmcx\CMakeFiles\_pmcx.dir\_pmcx_generated_mcx_core.cu.obj.cmake.pre-gen;C:\Projects\mcx\pmcx\build\temp.win-amd64-cpython-310\Release\_pmcx\CMakeFiles\_pmcx.dir\_pmcx_generated_mcx_core.cu.obj.depend;C:\Projects\mcx\pmcx\build\temp.win-amd64-cpython-310\Release\_pmcx\CMakeFiles\mcx-matlab.dir\mcx-matlab_generated_mcx_core.cu.obj.cmake.pre-gen;C:\Projects\mcx\pmcx\build\temp.win-amd64-cpython-310\Release\_pmcx\CMakeFiles\mcx-matlab.dir\mcx-matlab_generated_mcx_core.cu.obj.depend;C:\Projects\mcx\pmcx\build\temp.win-amd64-cpython-310\Release\_pmcx\CMakeFiles\mcx.dir\mcx_generated_mcx_core.cu.obj.cmake.pre-gen;C:\Projects\mcx\pmcx\build\temp.win-amd64-cpython-310\Release\_pmcx\CMakeFiles\mcx.dir\mcx_generated_mcx_core.cu.obj.depend;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Projects\mcx\pmcx\build\temp.win-amd64-cpython-310\Release\_pmcx\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="C:\Projects\mcx\src\mcx.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="C:\Projects\mcx\pmcx\build\temp.win-amd64-cpython-310\Release\_pmcx\ZERO_CHECK.vcxproj">
+      <Project>{28AA4AB3-10A5-31A7-8F9B-00E68E5110E6}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="C:\Projects\mcx\pmcx\build\temp.win-amd64-cpython-310\Release\_pmcx\mcx.vcxproj">
+      <Project>{5B910B74-B4A4-35D8-9791-3BBCC5C4D4D1}</Project>
+      <Name>mcx</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Projects\mcx\pmcx\build\temp.win-amd64-cpython-310\Release\_pmcx\zmat\zmat.vcxproj">
+      <Project>{021AA9C7-1EDC-3B4D-A7DC-BCD40DDF8544}</Project>
+      <Name>zmat</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

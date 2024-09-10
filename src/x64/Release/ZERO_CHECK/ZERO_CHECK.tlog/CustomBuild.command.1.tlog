@@ -1,0 +1,10 @@
+^C:\PROJECTS\MCX\SRC\CMAKEFILES\3AE0AD212DC4045B1D9553CD5B30D8A0\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Projects/mcx/src -BC:/Projects/mcx/src --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Projects/mcx/src/mcx.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

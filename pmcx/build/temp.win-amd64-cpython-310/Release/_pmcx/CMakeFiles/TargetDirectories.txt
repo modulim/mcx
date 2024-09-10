@@ -1,0 +1,10 @@
+C:/Projects/mcx/pmcx/build/temp.win-amd64-cpython-310/Release/_pmcx/CMakeFiles/mcx.dir
+C:/Projects/mcx/pmcx/build/temp.win-amd64-cpython-310/Release/_pmcx/CMakeFiles/mcx-exe.dir
+C:/Projects/mcx/pmcx/build/temp.win-amd64-cpython-310/Release/_pmcx/CMakeFiles/_pmcx.dir
+C:/Projects/mcx/pmcx/build/temp.win-amd64-cpython-310/Release/_pmcx/CMakeFiles/mcx-matlab.dir
+C:/Projects/mcx/pmcx/build/temp.win-amd64-cpython-310/Release/_pmcx/CMakeFiles/mcxlab.dir
+C:/Projects/mcx/pmcx/build/temp.win-amd64-cpython-310/Release/_pmcx/CMakeFiles/ALL_BUILD.dir
+C:/Projects/mcx/pmcx/build/temp.win-amd64-cpython-310/Release/_pmcx/CMakeFiles/ZERO_CHECK.dir
+C:/Projects/mcx/pmcx/build/temp.win-amd64-cpython-310/Release/_pmcx/zmat/CMakeFiles/zmat.dir
+C:/Projects/mcx/pmcx/build/temp.win-amd64-cpython-310/Release/_pmcx/zmat/CMakeFiles/ALL_BUILD.dir
+C:/Projects/mcx/pmcx/build/temp.win-amd64-cpython-310/Release/_pmcx/pybind11/CMakeFiles/ALL_BUILD.dir

@@ -967,8 +967,8 @@ void mcx_set_field(const mxArray* root, const mxArray* item, int idx, Config* cf
 
         arraydim = mxGetDimensions(item);
 
-        if (arraydim[0] > 0 && arraydim[1] != 5) {
-            mexErrMsgTxt("the 'polprop' field must have 5 columns (mua,radius,rho,n_sph,n_bkg");
+        if (arraydim[0] > 0 && arraydim[1] != 7) {
+            mexErrMsgTxt("the 'polprop' field must have 6 columns (mua,radius,rho,n_sph,n_bkg,cv,model");
         }
 
         double* val = mxGetPr(item);
@@ -980,7 +980,7 @@ void mcx_set_field(const mxArray* root, const mxArray* item, int idx, Config* cf
 
         cfg->polprop = (POLMedium*)malloc(cfg->polmedianum * sizeof(POLMedium));
 
-        for (j = 0; j < 5; j++)
+        for (j = 0; j < 7; j++)
             for (i = 0; i < cfg->polmedianum; i++) {
                 ((float*)(&cfg->polprop[i]))[j] = val[j * arraydim[0] + i];
             }

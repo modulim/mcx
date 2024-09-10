@@ -220,6 +220,186 @@ void Mie(double x, double mx, const double* mu, float4* smatrix, double* qsca, d
     free(tau);
 }
 
+/* Raj Addition for Polydisperse Solutions - Adapted from Radosevich Codes */
+
+/**
+ * @brief Precompute scattering parameters based on Mie theory [bohren and huffman]
+ *
+ * For each combination of sphere and background medium, compute the scattering
+ * efficiency and scattering Mueller matrix w.r.t. different scattering angles.
+ *
+ * @param[in] x: sphere particle size parameters
+ * @param[in] m: complex relative refractive index
+ * @param[in] mu: precomputed cosine of sampled scattering angles
+ * @param[out] smatrix: scattering Mueller matrix
+ * @param[out] qsca: scattering efficiency
+ */
+
+void MiePoly(double x, double mx, const double* mu, float4* smatrix, double* qsca, double* g, const double mean_radius, const double CV, const double nmed, const double lambda) {    
+    /**** Implement Gaussian Distribution of Sphere Sizes *******/
+    double* radii;
+    double* weights;
+    double* s11_avg;
+    double* s12_avg;
+    double* s33_avg;
+    double* s43_avg;
+    double st_dev, delta_size, nrs;  /* photon weight */
+    double prob, tot, szx, temp, temp2;//variables for including distribution of sphere sizes
+
+    int NRS = 1001;
+    nrs = 1001;//this is the number of sampled points in the sphere size distribution. 
+    st_dev = mean_radius * CV;
+    delta_size = 6 * st_dev / nrs;//go 3 stdev out from mean    
+    radii = (double*)calloc(NRS, sizeof(double));/*beads radii. This makes Gaussian distribution with 1001 sampling points*/
+    weights = (double*)calloc(NRS, sizeof(double));
+    s11_avg = (double*)calloc(NANGLES, sizeof(double));
+    s12_avg = (double*)calloc(NANGLES, sizeof(double));
+    s33_avg = (double*)calloc(NANGLES, sizeof(double));
+    s43_avg = (double*)calloc(NANGLES, sizeof(double));
+
+    /*if (x <= 0.0) {
+        MCX_ERROR(-6, "sphere size must be positive");
+    }
+
+    if (x > 20000.0) {
+        MCX_ERROR(-6, "spheres with x>20000 are not validated");
+    }
+
+    if ((creal(m) == 0.0 && x < 0.1) || (creal(m) > 0.0 && cabs(m) * x < 0.1)) {
+        small_Mie(x, mx, mu, smatrix, qsca, g);
+        return;
+    }
+    */
+
+    for (int i = 0; i < NANGLES; i++) {
+        //pi1[i] = 1.0;
+        s11_avg[i] = 0.0;
+        s12_avg[i] = 0.0;
+        s33_avg[i] = 0.0;
+        s43_avg[i] = 0.0;
+    }
+    temp = 0;
+    temp2 = 0;    
+
+    /*Code for sphere size distribution (coefficient of variation)*/
+    tot = 0;
+    //FILE* target;
+    //target = fopen("C:/Users/sharedrd/Documents/LocalProjects/Transport/polarizedMC/mi-lut-gen/radius_size_distribution.dat", "w");
+    for (int ir = 0; ir <= (NRS - 1); ir += 1)
+    {
+        radii[ir] = (mean_radius - 3 * st_dev + ir * delta_size);
+        weights[ir] = 1 / sqrt(2 * ONE_PI * st_dev * st_dev) * exp(-1 / (2 * st_dev * st_dev) * pow((radii[ir] - mean_radius), 2));
+        //fprintf(target, "%f   %f   \n", radii[ir], weights[ir]);
+        prob = weights[ir];
+        tot += prob;
+    }
+
+    //fclose(target);
+    for (int ir = 0; ir <= (NRS - 1); ir += 1)
+    {
+        szx = TWO_PI * radii[ir] * nmed / lambda ; // size parameter (unitless)        
+        Mie(szx, mx, mu, smatrix, qsca, g); /* <---- Call Mie program ----- */
+        prob = weights[ir];
+        for (int i = 0; i <= NANGLES; i++)
+        {
+            s11_avg[i] += (prob / tot) * smatrix[i].x;
+            s12_avg[i] += (prob / tot) * smatrix[i].y; 
+            s33_avg[i] += (prob / tot) * smatrix[i].z; 
+            s43_avg[i] += (prob / tot) * smatrix[i].w; 
+        }
+    }
+
+    for (int i = 0; i < NANGLES; i++) {
+        smatrix[i].x = s11_avg[i];
+        smatrix[i].y = s12_avg[i];
+        smatrix[i].z = s33_avg[i];
+        smatrix[i].w = s43_avg[i];
+
+        if (i == 0)
+        {
+            temp += mu[0] * smatrix[0].x * fabs(mu[0] - 1);
+            temp2 += smatrix[0].x * (mu[0] - 1);
+        }
+        else
+        {
+            temp += mu[i] * (smatrix[i].x + smatrix[i-1].x) * fabs(mu[i] - mu[i - 1]) / 2;
+            temp2 += (smatrix[i].x + smatrix[i-1].x) * fabs(mu[i] - mu[i - 1]) / 2;
+        }        
+    }    
+    (*g) = temp / temp2;
+    
+    free(radii);
+    free(weights);
+    free(s11_avg);
+    free(s12_avg);
+    free(s33_avg);
+    free(s43_avg);
+}
+
+
+void WhittleMattern(double lc, double D, const double* mu, float4* smatrix, double* g, const double lambda) {
+
+    double* s11;
+    double* s12;
+    double* s33;
+    double* s43;
+    double spectral_density, prob, tot, temp, temp2, klc;//variables for including distribution of sphere sizes
+    int i;
+    s11 = (double*)calloc(NANGLES, sizeof(double));
+    s12 = (double*)calloc(NANGLES, sizeof(double));
+    s33 = (double*)calloc(NANGLES, sizeof(double));
+    s43 = (double*)calloc(NANGLES, sizeof(double));
+
+    klc = TWO_PI * lc / lambda;
+    
+    temp = 0;
+    temp2 = 0;
+
+    i = 0;
+    spectral_density = 1 / pow(1 + 4 * pow(klc, 2) * pow(sin(i * ONE_PI / NANGLES / 2), 2), D/2 );
+    s11[i] = (1 + pow(cos(i * ONE_PI / NANGLES), 2)) * spectral_density;
+    s12[i] = (pow(cos(i * ONE_PI / NANGLES), 2) - 1) * spectral_density;
+    s33[i] = (2 * cos(i * ONE_PI / NANGLES)) * spectral_density;
+    s43[i] = 0.0;
+
+
+    for (i = 1; i <= NANGLES; ++i)
+    {
+        spectral_density = 1 / pow(1 + 4 * pow(klc, 2) * pow(sin(i * ONE_PI / NANGLES / 2), 2), D/2);
+        s11[i] = (1 + pow(cos(i * ONE_PI / NANGLES), 2)) * spectral_density;
+        s12[i] = (pow(cos(i * ONE_PI / NANGLES), 2) - 1) * spectral_density;
+        s33[i] = (2 * cos(i * ONE_PI / NANGLES)) * spectral_density;
+        s43[i] = 0.0;
+    }
+
+    for (int i = 0; i < NANGLES; i++) {
+        smatrix[i].x = s11[i];
+        smatrix[i].y = s12[i];
+        smatrix[i].z = s33[i];
+        smatrix[i].w = s43[i];
+
+        if (i == 0)
+        {
+            temp += mu[0] * smatrix[0].x * fabs(mu[0] - 1);
+            temp2 += smatrix[0].x * (mu[0] - 1);
+        }
+        else
+        {
+            temp += mu[i] * (smatrix[i].x + smatrix[i - 1].x) * fabs(mu[i] - mu[i - 1]) / 2;
+            temp2 += (smatrix[i].x + smatrix[i - 1].x) * fabs(mu[i] - mu[i - 1]) / 2;
+        }
+    }
+    (*g) = temp / temp2;
+    
+    free(s11);
+    free(s12);
+    free(s33);
+    free(s43);
+}
+
+
+/* Raj changes done */
+
 /**
  * @brief Precompute scattering parameters for small particles
  * @param[in] x: sphere particle size parameters

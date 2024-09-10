@@ -96,6 +96,8 @@ typedef struct MCXPolarizeMedium {
     float rho;                     /**< particle volume density (in 1/micron^3) */
     float nsph;                    /**< particle refractive index */
     float nmed;                    /**< background medium refrative index */
+    float cv;                    /**< particle size coefficient of variation */
+    float model;                    /** 0 - Mie mono, 1 - Mie Poly , 2 - Whittle Mattern */
 } POLMedium;
 
 typedef struct  MCXExtraSource {

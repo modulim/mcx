@@ -697,8 +697,8 @@ void parse_config(const py::dict& user_cfg, Config& mcx_config) {
             throw py::value_error("the 'polprop' field must a 2D array");
         }
 
-        if ((buffer_info.shape.size() > 1 && buffer_info.shape.at(0) > 0 && buffer_info.shape.at(1) != 5) || buffer_info.shape.size() == 1 && buffer_info.shape.at(0) != 5) {
-            throw py::value_error("the 'polprop' field must have 5 columns (mua, radius, rho, n_sph,n_bkg)");
+        if ((buffer_info.shape.size() > 1 && buffer_info.shape.at(0) > 0 && buffer_info.shape.at(1) != 7) || buffer_info.shape.size() == 1 && buffer_info.shape.at(0) != 7) {
+            throw py::value_error("the 'polprop' field must have 7 columns (mua, radius, rho, n_sph,n_bkg, cv, model)");
         }
 
         mcx_config.polmedianum = (buffer_info.shape.size() == 1) ? 1 : buffer_info.shape.at(0);
@@ -710,7 +710,7 @@ void parse_config(const py::dict& user_cfg, Config& mcx_config) {
         mcx_config.polprop = (POLMedium*) malloc(mcx_config.polmedianum * sizeof(POLMedium));
         auto val = static_cast<float*>(buffer_info.ptr);
 
-        for (int j = 0; j < 5; j++)
+        for (int j = 0; j < 7; j++)
             for (int i = 0; i < mcx_config.polmedianum; i++) {
                 ((float*) (&mcx_config.polprop[i]))[j] = val[j * mcx_config.polmedianum + i];
             }

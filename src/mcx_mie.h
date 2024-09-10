@@ -40,6 +40,8 @@ extern "C" {
 #endif
 
 void Mie(double x, double mx, const double* mu, float4* smatrix, double* qsca, double* g);
+void MiePoly(double x, double mx, const double* mu, float4* smatrix, double* qsca, double* g, const double mean_radius, const double CV, const double nmed, const double lambda);
+void WhittleMattern(double klc, double D, const double* mu, float4* smatrix, double* g, const double lambda);
 void small_Mie(double x, double mx, const double* mu, float4* smatrix, double* qsca, double* g);
 
 #ifdef  __cplusplus

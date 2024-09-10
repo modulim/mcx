@@ -8,6 +8,10 @@ cmake_minimum_required(VERSION 3.3)
 
 project(zmat)
 
+cmake_path(SET ZLIB_ROOT "C:/Program Files (x86)/GnuWin32/src")
+cmake_path(SET ZLIB_LIBRARY "C:/Program Files (x86)/GnuWin32/bin")
+cmake_path(SET ZLIB_INCLUDE_DIR "C:/Program Files (x86)/GnuWin32/include")
+
 find_package(ZLIB REQUIRED)
 #find_package(Matlab)
 

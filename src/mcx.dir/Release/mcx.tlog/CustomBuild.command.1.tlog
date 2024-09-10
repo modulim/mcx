@@ -1,0 +1,26 @@
+^C:\PROJECTS\MCX\SRC\MCX_CORE.CU
+setlocal
+cd C:\Projects\mcx\src\CMakeFiles\mcx.dir
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Projects/mcx/src/CMakeFiles/mcx.dir//Release
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\CMake\bin\cmake.exe" -D verbose:BOOL=OFF -D "CCBIN:PATH=C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools/MSVC/14.39.33519/bin/Hostx64/x64" -D build_configuration:STRING=Release -D generated_file:STRING=C:/Projects/mcx/src/CMakeFiles/mcx.dir//Release/mcx_generated_mcx_core.cu.obj -D generated_cubin_file:STRING=C:/Projects/mcx/src/CMakeFiles/mcx.dir//Release/mcx_generated_mcx_core.cu.obj.cubin.txt -P C:/Projects/mcx/src/CMakeFiles/mcx.dir//mcx_generated_mcx_core.cu.obj.Release.cmake
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\PROJECTS\MCX\SRC\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Projects/mcx/src -BC:/Projects/mcx/src --check-stamp-file C:/Projects/mcx/src/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

@@ -1774,6 +1774,7 @@ void mcx_prep_polarized(Config* cfg) {
     /* precompute cosine of discretized scattering angles */
     double* mu = (double*)malloc(NANGLES * sizeof(double));
 
+    
     for (int i = 0; i < NANGLES; i++) {
         mu[i] = cos(ONE_PI * i / (NANGLES - 1));
     }
@@ -1782,16 +1783,57 @@ void mcx_prep_polarized(Config* cfg) {
     Medium* prop = cfg->prop;
     POLMedium* polprop = cfg->polprop;
 
+    
+
+    /*printf("Prepping polarized simulation\n");
+    printf("polyprop.r =[%g];\n", (float)(polprop[0].r));
+    printf("polyprop.rho =[%g];\n", (float)(polprop[0].rho));
+    printf("polyprop.nsph =[%g];\n", (float)(polprop[0].nsph));
+    printf("polyprop.nmed =[%g];\n", (float)(polprop[0].nmed));    
+    printf("polyprop.cv =[%g];\n", (float)(polprop[0].cv));*/
+
     for (int i = 0; i < cfg->polmedianum; i++) {
         prop[i + 1].mua = polprop[i].mua;
         prop[i + 1].n = polprop[i].nmed;
 
+        printf("Model Int (%d)\n", (int)polprop[i].model);
         /* for (i-1)th sphere(r, rho, nsph)-background medium(nmed) combination, compute mus and s-matrix */
-        double x, A, qsca, g;
+        double x, A, qsca, qsca2, g, lc, D;
         x = TWO_PI * polprop[i].r * polprop[i].nmed / (cfg->lambda * 1e-3); // size parameter (unitless)
         A = ONE_PI * polprop[i].r * polprop[i].r;                     // cross-sectional area in micron^2
-        Mie(x, polprop[i].nsph / polprop[i].nmed, mu, cfg->smatrix + i * NANGLES, &qsca, &g);
 
+        if ((int)polprop[i].model == 2) {
+            lc = polprop[i].r;
+            D = polprop[i].rho;
+            WhittleMattern(lc, D, mu, cfg->smatrix + i * NANGLES, &g, cfg->lambda * 1e-3);
+            printf("WM (lc = %g, D = %g, WL = %g)\n", lc, D, cfg->lambda * 1e-3);
+            printf("Scattering Angles WM (g = %f)\n", g);
+            //FILE* target;
+            //target = fopen("C:/Users/sharedrd/Documents/LocalProjects/Transport/polarizedMC/mi-lut-gen/wm.dat", "w");
+            //for (int i = 0; i <= (NANGLES - 1); i += 1)
+            //{
+            //    fprintf(target, "%f   %f   %f   %f   \n", cfg->smatrix[i].x, cfg->smatrix[i].y, cfg->smatrix[i].z, cfg->smatrix[i].w);                
+            //}
+            //fclose(target);
+            //for (int k = 0; k < NANGLES; k++)
+            //    printf("%g %g %g %g\n", cfg->smatrix[k].x, cfg->smatrix[k].y, cfg->smatrix[k].z,cfg->smatrix[k].w);
+        }
+        else if((int)polprop[i].model == 1){
+            Mie(x, polprop[i].nsph / polprop[i].nmed, mu, cfg->smatrix + i * NANGLES, &qsca, &g);
+            printf("Scattering Angles Mono (g = %g)\n", g);
+        }
+        else {
+            Mie(x, polprop[i].nsph / polprop[i].nmed, mu, cfg->smatrix + i * NANGLES, &qsca, &g);
+            printf("Scattering Angles Mono (g = %g)\n", g);
+            //for (int k = 0; k < NANGLES; k++)
+            //   printf("%g %g %g %g\n", cfg->smatrix[k].x, cfg->smatrix[k].y, cfg->smatrix[k].z, cfg->smatrix[k].w);
+            MiePoly(x, polprop[i].nsph / polprop[i].nmed, mu, cfg->smatrix + i * NANGLES, &qsca2, &g, polprop[i].r, polprop[i].cv, polprop[i].nmed, (cfg->lambda * 1e-3));
+            printf("Scattering Angles Poly (g = %g)\n", g);
+            //for (int k = 0; k < NANGLES; k++)
+            //    printf("%g %g %g %g\n", cfg->smatrix[k].x, cfg->smatrix[k].y, cfg->smatrix[k].z,cfg->smatrix[k].w);
+        }
+        
+        
         if (prop[i + 1].mus > EPS) {
             float target_mus = prop[i + 1].mus; // achieve target mus
 
@@ -1800,11 +1842,15 @@ void mcx_prep_polarized(Config* cfg) {
                 target_mus = target_musp / (1.0 - g);
             }
 
-            polprop[i].rho = target_mus / qsca / A * 1e-3;
+            if ((int)polprop[i].model != 2) {
+                polprop[i].rho = target_mus / qsca / A * 1e-3;
+            }
         }
 
-        /* compute scattering coefficient (in mm^-1) */
-        prop[i + 1].mus = qsca * A * polprop[i].rho * 1e3;
+        if ((int)polprop[i].model != 2) {
+            /* compute scattering coefficient (in mm^-1) */
+            prop[i + 1].mus = qsca * A * polprop[i].rho * 1e3;
+        }        
 
         /* store anisotropy g (not used in polarized MCX simulation) */
         prop[i + 1].g = g;
@@ -2344,14 +2390,28 @@ int mcx_loadjson(cJSON* root, Config* cfg) {
                         if (val) {
                             cfg->polprop[i].nmed = val->valuedouble;
                         }
+
+                        val = FIND_JSON_OBJ("cv", (MCX_ERROR(-1, "You must specify cv for the mean particle size"), ""), med);
+
+                        if (val) {
+                            cfg->polprop[i].cv = val->valuedouble;
+                        }
+
+                        val = FIND_JSON_OBJ("model", (MCX_ERROR(-1, "You must specify scattering model for polarized media"), ""), med);
+
+                        if (val) {
+                            cfg->polprop[i].model = val->valuedouble;
+                        }
                     } else if (cJSON_IsArray(med)) {
                         cfg->polprop[i].mua = med->child->valuedouble;
                         cfg->polprop[i].r = med->child->next->valuedouble;
                         cfg->polprop[i].rho = med->child->next->next->valuedouble;
                         cfg->polprop[i].nsph = med->child->next->next->next->valuedouble;
                         cfg->polprop[i].nmed = med->child->next->next->next->next->valuedouble;
+                        cfg->polprop[i].cv = med->child->next->next->next->next->next->valuedouble;
+                        cfg->polprop[i].model = med->child->next->next->next->next->next->next->valuedouble;
                     } else {
-                        MCX_ERROR(-1, "Domain.MieScatter must be either an array of objects or array of 5-elem numerical arrays");
+                        MCX_ERROR(-1, "Domain.MieScatter must be either an array of objects or array of 6-elem numerical arrays");
                     }
 
                     med = med->next;
@@ -5386,6 +5446,7 @@ void mcx_printheader(Config* cfg) {
 ###############################################################################\n\
 #                      Monte Carlo eXtreme (MCX) -- CUDA                      #\n\
 #          Copyright (c) 2009-2024 Qianqian Fang <q.fang at neu.edu>          #\n\
+#                 Modified by Raj Singh-Moon, 240830 Modulim                  #\n\
 #" S_BLUE "                https://mcx.space/  &  https://neurojson.io/                 " S_MAGENTA "#\n\
 #                                                                             #\n\
 # Computational Optics & Translational Imaging (COTI) Lab- " S_BLUE "http://fanglab.org " S_MAGENTA "#\n\
